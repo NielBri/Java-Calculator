@@ -59,9 +59,37 @@ public class Calculator {
         }
         return result;
     }
+    // Checker for parenthesis ()
+     private static double prioritizeTerm() { // Skips the * and / Checker first to see the given
+
+        if (input.charAt(position) == '(') {
+
+            position++; // Moves to next to character
+            double result = expression(); // Does the checks for the characters inside the parenthesis
+            position++; // After all the checks it goes to ) and then skips it
+
+            return result;
+        }
+
+        // This is the number checker for the current position
+        int start = position;
+
+        while (position < input.length()) {
+
+            char current = input.charAt(position);
+
+            if ((current >= '0' && current <= '9') || current == '.') {
+                position++; // Checks to see if current number is a number or a decimal point and moves to the next number
+            } else {
+                break;
+            }
+        }
+
+        return Double.parseDouble(input.substring(start, position)); // Makes the string into a Double especially for numbers with decimals
+    }
 
    private static void assertEquals(String expression, double expected) {
-       double actual = 0; //TODO: Call your method here
+       double actual = evaluate(expression); //TODO: Call your method here
        double tolerance = 0.000001;
        if (Math.abs(actual - expected) < tolerance) {
            System.out.println("[PASS] " + expression + " = " + actual);
