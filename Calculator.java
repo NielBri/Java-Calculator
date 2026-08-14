@@ -1,5 +1,15 @@
 public class Calculator {
+    // make a pointer for the given expression that checks for each character
+    private static String input;
+    private static int position;
 
+    public static double evaluate(String expression) {
+
+        input = expression.replace(" ", "");
+        position = 0;
+
+        return expression();
+    
    private static void assertEquals(String expression, double expected) {
        double actual = 0; //TODO: Call your method here
        double tolerance = 0.000001;
