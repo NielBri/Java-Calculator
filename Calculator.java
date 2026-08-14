@@ -5,11 +5,36 @@ public class Calculator {
 
     public static double evaluate(String expression) {
 
-        input = expression.replace(" ", "");
-        position = 0;
+        input = expression.replace(" ", ""); // Checks if the current position is a space or not and become the current head
+        position = 0; // Defaults at the start: "2+4/7" no. 2 would be position 0
 
-        return expression();
-    
+        return expression(); // Saves the character at the input
+    }
+
+    // Add checker for + and -
+    private static double expression() { // Makes current expression into a double
+
+        double result = term();
+
+        while (position < input.length()) {
+
+            char operator = input.charAt(position); // Checks the input character at the position
+
+            if (operator == '+') { // If input is +
+                position++;
+                result = result + term();
+
+            } else if (operator == '-') {
+                position++;
+                result = result - term();
+
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
+
    private static void assertEquals(String expression, double expected) {
        double actual = 0; //TODO: Call your method here
        double tolerance = 0.000001;
