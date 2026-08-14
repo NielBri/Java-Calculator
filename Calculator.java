@@ -1,7 +1,7 @@
 public class Calculator {
     // make a pointer for the given expression that checks for each character
-    private static String input;
-    private static int position;
+    private static String input; // Stores input current character
+    private static int position; // Stores position 
 
     public static double evaluate(String expression) {
 
@@ -18,15 +18,40 @@ public class Calculator {
 
         while (position < input.length()) {
 
-            char operator = input.charAt(position); // Checks the input character at the position
-
-            if (operator == '+') { // If input is +
+            char operator = input.charAt(position); // Checks the input character at the position if it is not an integer
+            // Check if + or - and move position up and then does the operation for result and the new term 
+            if (operator == '+') {
                 position++;
                 result = result + term();
 
             } else if (operator == '-') {
                 position++;
                 result = result - term();
+
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
+
+    // Add a checker for * and /
+
+    private static double term() { // Gets prioritized first to check * and / before + or - 
+
+        double result = prioritizeTerm();
+
+        while (position < input.length()) {
+
+            char operator = input.charAt(position);
+
+            if (operator == '*') {
+                position++;
+                result = result * prioritizeTerm();
+
+            } else if (operator == '/') {
+                position++;
+                result = result / prioritizeTerm();
 
             } else {
                 break;
